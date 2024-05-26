@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
+from scipy.stats import norm
 
-
-chat_id = 123456 # Ваш chat ID, не меняйте название переменной
+chat_id = 440117284 # Ваш chat ID, не меняйте название переменной
 
 def solution(x_success: int, 
              x_cnt: int, 
@@ -11,4 +11,17 @@ def solution(x_success: int,
     # Измените код этой функции
     # Это будет вашим решением
     # Не меняйте название функции и её аргументы
-    return ... # Ваш ответ, True или False
+    
+    p1 = x_success / x_cnt
+    p2 = y_success / y_cnt
+    p_pool = (x_success + y_success) / (x_cnt + y_cnt)
+    
+    SE = np.sqrt(p_pool * (1 - p_pool) * (1 / x_cnt + 1 / y_cnt))
+    
+    Z = (p1 - p2) / SE
+    
+    alpha = 0.04
+    critical_value = norm.ppf(1 - alpha / 2)
+    print(p1, p2, SE, critical_value)
+    
+    return abs(Z) < critical_value
