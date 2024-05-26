@@ -22,6 +22,5 @@ def solution(x_success: int,
     
     alpha = 0.04
     critical_value = norm.ppf(1 - alpha / 2)
-    print(p1, p2, SE, critical_value)
     
     return abs(Z) < critical_value
